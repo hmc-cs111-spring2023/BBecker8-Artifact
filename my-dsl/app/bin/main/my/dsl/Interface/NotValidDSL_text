@@ -1,0 +1,70 @@
+: Format for DSL is Not Valid
+
+Input Format must be in the following form:
+(PlayType) (player#1) (numberYards) (player#2) (Outcome)
+
+Player Number #1 - A number representing a player's number
+
+Number of Yards - The number of yards on the given play given in the format of a number followed by a 'y'
+Example: 22y, 11y, -3y, -50y
+
+Player Number #2 - A number representing a player's number (only used on a pass play)
+
+Play Type - A word or letter representing a possible play
+Possible types for plays are:
+
+
+Offensive Play Types:
+
+Pass - can be written as the following: Pass P p
+
+Run - can be written as the following: Run Rush R r
+
+Reception - can be written as the following: defined by a pass play
+
+Kickoff - can be written as the following: Kick K k
+
+Punt - can be written as the following: Punt punt PT pt
+
+Field Goal - can be written as the following: FG fg
+
+PAT - can be written as the following: Pat PAT pat
+
+Kick off return (KOR)- can be written as the following: KOR kor
+
+Punt Return (POR)- can be written as the following: POR por PR pr
+
+Sack - can be written as the following: Sack sck
+
+
+Defensive Play Types:
+
+Tackle for loss - can be written as the following: forloss fl
+
+Sack - can be written as the following: sack sck
+
+Interception - can be written as the following: int
+
+Tipped Pass - can be written as the following: tippass tp tipp
+
+Forced Fumble - can be written as the following: fum ff ffum forcedf
+
+Blocked Kick - can be written as the following: blockedk bk bkick
+
+Safety - can be written as the following: safety sfty
+
+Outcome - An additional tag representing an outcome of a play
+
+Possible Outcomes for plays are:
+TD - represents a Touch Down
+INC - represents an incomplete Pass
+INT - represents an Interception thrown
+FC - represents a fair catch
+FG - represents a field Goal
+PAT - represents a Point after attempt
+PUNT - represents a Punt
+REC - represents a recovered fumble
+NREC - represents a non-recovered fumble
+TB - represents a Touch Back
+GOOD - represents a good kick
+MISS - represents a missed kick

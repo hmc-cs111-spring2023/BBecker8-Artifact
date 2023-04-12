@@ -1,0 +1,48 @@
+: is not a valid Play-Type
+
+Play Type - A word or letter representing a possible play
+
+Possible types for plays are:
+
+
+Offensive Play Types:
+
+Pass - can be written as the following: Pass P p
+
+Run - can be written as the following: Run Rush R r
+
+Reception - can be written as the following: defined by a pass play
+
+Kickoff - can be written as the following: Kick K k
+
+Punt - can be written as the following: Punt punt PT pt
+
+Field Goal - can be written as the following: FG fg
+
+PAT - can be written as the following: Pat PAT pat
+
+Kick off return (KOR)- can be written as the following: KOR kor
+
+Punt Return (POR)- can be written as the following: POR por PR pr
+
+Sack - can be written as the following: Sack sck
+
+
+Defensive Play Types:
+
+Tackle for loss - can be written as the following: forloss fl
+
+Sack - can be written as the following: sack sck
+
+Interception - can be written as the following: int
+
+Tipped Pass - can be written as the following: tippass tp tipp
+
+Forced Fumble - can be written as the following: fum ff ffum forcedf
+
+Blocked Kick - can be written as the following: blockedk bk bkick
+
+Safety - can be written as the following: safety sfty
+
+
+
