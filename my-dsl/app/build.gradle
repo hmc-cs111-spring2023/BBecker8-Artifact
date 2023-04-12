@@ -37,7 +37,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'my.dsl.App'
+    mainClass = 'my.dsl.Interface.App'
 }
 
 tasks.named('test') {

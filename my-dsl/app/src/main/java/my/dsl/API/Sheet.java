@@ -1,4 +1,4 @@
-package my.dsl;
+package my.dsl.API;
 
 // Example take from: https://developers.google.com/sheets/api/quickstart/java, 
 // but modified so that it creates a new sheet instead of reading from an existing one, by 
@@ -19,7 +19,9 @@ import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.SpreadsheetProperties;
-import com.google.api.services.sheets.v4.model.ValueRange;
+
+import my.dsl.Interface.App;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
