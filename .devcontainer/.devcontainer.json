@@ -1,9 +1,12 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/java
 {
-	"name": "Java",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/java:0-17",
+	"name": "Java + X11",
+
+	"build": {
+		// Path is relative to the devcontainer.json file.
+		"dockerfile": "Dockerfile"
+	},
 
 	"features": {
 		"ghcr.io/devcontainers/features/java:1": {
@@ -11,7 +14,12 @@
 			"installMaven": "true",
 			"mavenVersion": "3.8.6",
 			"installGradle": "true"
-		}
+		},
+		"desktop-lite": {
+      "password": "abc123",
+      "webPort": "6080",
+      "vncPort": "5901"
+    }
 	},
 
 	// Configure tool-specific properties.
@@ -23,10 +31,17 @@
 				"streetsidesoftware.code-spell-checker"
 			]
 		}
-	}
+	},
 
+  "portsAttributes": {
+    "6080": {
+      "label": "Application",
+      "onAutoForward": "openPreview"
+    }
+  },
+  
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+  "forwardPorts": [6080]
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "java -version",
