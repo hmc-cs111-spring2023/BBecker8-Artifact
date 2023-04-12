@@ -81,7 +81,7 @@ public class Sheet {
    * @return newly created spreadsheet id
    * @throws IOException - if credentials file not found.
    */
-  public static String createSpreadsheet(String title) throws IOException, GeneralSecurityException {    
+  public static void main(String... args) throws IOException, GeneralSecurityException {    
     final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 
     // Create the sheets API client
@@ -93,7 +93,7 @@ public class Sheet {
     // Create new spreadsheet with a title
     Spreadsheet spreadsheet = new Spreadsheet()
         .setProperties(new SpreadsheetProperties()
-        .setTitle(title));
+        .setTitle("title"));
 
     spreadsheet = service.spreadsheets().create(spreadsheet)
         .setFields("spreadsheetId")
@@ -101,7 +101,7 @@ public class Sheet {
 
     // Prints the new spreadsheet id
     System.out.println("Spreadsheet ID: " + spreadsheet.getSpreadsheetId());
-    return spreadsheet.getSpreadsheetId();
+    // return spreadsheet.getSpreadsheetId();
     }
 
 }
