@@ -1,0 +1,334 @@
+import java.awt.List;
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Map.Entry;
+
+//  import com.fasterxml.jackson.core.;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class SpreadsheetApiExample {
+
+    public static void main(String[] args) throws Exception {
+//    	Game game = new Game();
+//    	game.add("Pass", new PassingPlayer(11));
+//    	sendPayload(populateSheet(game), "https://api.spreadsheet.com/v1/worksheets/nT64HfwYRYOJs5E2pKllpQ/rows");
+    	System.out.println(getPayload("https://api.spreadsheet.com/v1/worksheets/nT64HfwYRYOJs5E2pKllpQ/rows").get("items").get(0).get("_id"));
+    }
+
+ // Build the payload
+//  JSONObject payload = new JSONObject();
+//  payload.put("name", "howdy");
+    public static void sendPayload(JSONArray payload, String uri) {
+        try {
+            URL url = new URL(uri);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Authorization", "Bearer ar0wyM-.uMt0YfH8TpeyvEQD7p3sTg");
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+            OutputStream os = connection.getOutputStream();
+            os.write(payload.toString().getBytes(StandardCharsets.UTF_8));
+            os.flush();
+            os.close();
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                System.out.println("Worksheet created successfully: " + response.toString());
+            } else {
+                System.out.println("Failed to create worksheet. Response Code: " + responseCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+//    https://api.spreadsheet.com/v1/worksheets/nT64HfwYRYOJs5E2pKllpQ/rows
+    public static JsonNode getPayload(String uri) {
+
+        try {
+            URL url = new URL(uri);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Authorization", "Bearer ar0wyM-.uMt0YfH8TpeyvEQD7p3sTg");
+            connection.setDoOutput(true);
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                System.out.println("Worksheet created successfully: " + response.toString());
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode jsonNode = objectMapper.readTree(response.toString());
+                return jsonNode;
+            } else {
+                System.out.println("Failed to create worksheet. Response Code: " + responseCode);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		return null;
+
+    }
+
+    public static ArrayList<String> parseIds(JSONObject jsonObject) {
+        ArrayList<String> ids = new ArrayList<>();
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(jsonObject.toString());
+            JsonNode itemsNode = jsonNode.get("items");
+            if (itemsNode != null && itemsNode.isArray()) {
+                for (JsonNode itemNode : itemsNode) {
+                    JsonNode idNode = itemNode.get("_id");
+                    if (idNode != null && idNode.isTextual()) {
+                        ids.add(idNode.asText());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ids;
+    }
+
+//    public void buildSheet(Games games) {
+//    	String uri = "https://api.spreadsheet.com/v1/workbooks/dkUM7qnIR9SCWrelxIDGlg/worksheets";
+//    	for (Game g : games) {
+//    		JSONObject payload = new JSONObject();
+//        	payload.put("name", g.getTitle);
+    		//sendPayload(payload, uri);
+//    	}
+//		
+//	}
+    
+//    payload = json.dumps(
+//    		  [
+//    		   {
+//    		     "_id": "<rowId1>",
+//    		     "cellData": [
+//    		       {
+//    		         "field": "<columnId1>",
+//    		         "data": "sample data"
+//    		       }
+//    		     ]
+//    		   },
+//    		   {
+//    		     "_id": "<rowId2>",
+//    		     "cellData": [
+//    		       {
+//    		         "field": "<columnId2>",
+//    		         "data": "sample data"
+//    		       }
+//    		      ]
+//    		   }
+//    		  ]
+//    		)
+    // build one cell of the row
+//    JSONObject cellData1 = new JSONObject();
+//    cellData1.put("field", "<columnId1>");
+//    cellData1.put("data", "sample data");
+//
+//    // Create a row object
+//    JSONObject row1 = new JSONObject();
+//    row1.put("_id", "<rowId1>");
+//
+//    // Create a JSONArray for cellData objects and add a cell to the row
+//    JSONArray cellDataArray1 = new JSONArray();
+//    cellDataArray1.put(cellData1);
+//    row1.put("cellData", cellDataArray1);
+//
+//    // Create a JSONArray for rows and add the row objects
+//    JSONArray rowsArray = new JSONArray();
+//    rowsArray.put(row1);
+//
+//    // Create the final JSON object and add the rows array
+//    JSONObject finalJson = new JSONObject();
+//    finalJson.put("rows", rowsArray);
+    
+    public static ArrayList<Object> getPlayerStatsList(String playType, Player player) throws Exception {
+	    // should take attributes from player and add them to p depending on the player type
+		switch (playType) {
+	    case "Pass":
+	        return ((PassingPlayer) player).toList();
+		case "Rush":
+			return ((RushingPlayer) player).toList();
+	    case "Receive":
+	    	return ((ReceivingPlayer) player).toList();
+	    	
+	    case "Kick":
+	    	return ((KickingPlayer) player).toList();
+	 
+	    case "Punt":
+	    	return ((PuntPlayer) player).toList();
+	  
+	    case "FGPAT":
+	    	return ((PATFGPlayer) player).toList();
+	    
+	    case "KOR":
+	    	return ((KORPlayer) player).toList();
+	    
+	    case "PuntRet":
+	    	return ((PORPlayer) player).toList();
+	    case "Defense":
+	    	return ((DefensivePlayer) player).toList();
+	    default:
+			throw new Exception("Playtype did not match", new Throwable(playType));
+	 
+		}
+	
+	}
+    
+    public static JSONArray populateSheet(Game game) {
+    	JSONArray array = new JSONArray();
+		game.getPlayTypeMap().forEach((playType,playerList) -> {
+			ArrayList<Object> list = new ArrayList<>();
+			list.add(playType);
+			array.put(buildRow(buildCells(list)));
+			for (Player player : playerList) {
+				try {
+					array.put(buildRow(buildCells(getPlayerStatsList(playType, player))));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		return array;
+	}
+    
+    
+    
+    public static JSONObject buildRow(JSONArray array) {
+	    // Create a row object
+	    JSONObject row = new JSONObject();
+	    row.put("cellData", array);
+	    return row;
+		
+	}
+    
+    public static JSONArray buildCells(ArrayList<Object> list) {
+        JSONArray cellDataArray = new JSONArray();
+        char columnId = 'A'; // Start with 'A' as the initial value of columnId1
+
+        for (Object stat : list) {
+            // build one cell of the row
+            JSONObject cellData = new JSONObject();
+            cellData.put("field", Character.toString(columnId)); // Update the field with the current value of columnId1
+            cellData.put("data", stat);
+            cellDataArray.put(cellData);
+            
+            columnId++; // Increment the columnId1 character for the next iteration
+        }
+
+        return cellDataArray;
+    }
+    
+    
+    
+}
+
+
+////// NOT GOING TO USE THIS BUT I THOUGH I MIGHT ADD IT IN ///////
+////// EVERYTHING ABOVE HAS SHOWN TO BE USEFUL AND WORKS TO AN EXTENT///////
+public class JSON {
+	static ArrayList<ArrayList<ArrayList<ArrayList<Object>>>> gamesArrayList = new ArrayList<ArrayList<ArrayList<ArrayList<Object>>>>();
+	JSONObject object;
+	
+	public JSON(ArrayList<ArrayList<ArrayList<ArrayList<Object>>>> gamesArray) {
+		Stats stat1 = new Stats();
+		stat1.stats.add("hi");
+		Players player1 = new Players();
+		player1.players.add(stat1.stats);
+		PlayTypes playType1 = new PlayTypes();
+		playType1.playTypes.add(player1.players);
+		
+		gamesArray.add(playType1.playTypes);
+		// Create JSONArrays to store the final JSON data
+		JSONArray games = new JSONArray();
+		JSONArray playTypes = new JSONArray();
+		JSONArray players = new JSONArray();
+		JSONArray stats = new JSONArray();
+		JSONObject finalJson = new JSONObject();
+
+
+	    // Iterate through playtypes in the current game
+	    for (ArrayList<ArrayList<Object>> playtype : game) {
+	        // Create a JSONObject for each playtype
+	        JSONObject playtypeData = new JSONObject();
+	        playtypeData.put("Playtype", "getplaytpe");
+	       
+
+	        // Iterate through players in the current playtype
+	        for (ArrayList<Object> player : playtype) {
+	            // Create a JSONObject for each player
+	            JSONObject playerData = new JSONObject();
+	            playerData.put("_id", "<rowId1>");
+
+	            // Iterate through stats in the current player
+	            for (Object stat : player) {
+	                // Create a JSONObject for each stat
+	                JSONObject statData = new JSONObject();
+	                statData.put("field", "<columnId1>");
+	                statData.put("data", stat);
+	                // Add the statData JSONObject to the stats JSONArray
+	                stats.put(statData);
+	            }
+
+	            // Add the stats JSONArray to the playerData JSONObject
+	            playerData.put("cellData", stats);
+
+	            // Add the playerData JSONObject to the players JSONArray
+	            players.put(playerData);
+	        }
+
+	        // Add the players JSONArray to the playtypeData JSONObject
+	        playtypeData.put("Players", players);
+
+	        // Add the playtypeData JSONObject to the playTypes JSONArray
+	        playTypes.put(playtypeData);
+	    }
+
+	    // Add the playTypes JSONArray to the gameData JSONObject
+	    gameData.put("PlayTypes", playTypes);
+
+		
+		this.object = finalJson;
+		
+	}
+
+	public static void main(String[] args) {
+		JSON json = new JSON(gamesArrayList);
+		System.out.println(json.getObject());
+	}
+
+	public JSONObject getObject() {
+		return object;
+	}
+	
+	
+	
+
+}
