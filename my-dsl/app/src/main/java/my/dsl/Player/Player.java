@@ -1,6 +1,8 @@
 package my.dsl.Player;
 
-// @JsonIgnoreType
+import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
+@JsonIgnoreType
 public abstract class Player extends Object{
     // all possible variables for players
 	protected final int number; 
