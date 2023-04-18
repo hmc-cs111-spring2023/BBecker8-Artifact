@@ -42,7 +42,6 @@ public class StringGrouping {
 			this.numYards = nullToValue.apply(groupsMatcher.group("numyards"));
 			this.outcome = nullToValue.apply(groupsMatcher.group("outcome"));
 			
-			System.out.println("playType=" + playType + ", playerNum=" + playerNum + ", numYards=" + numYards + ", playerNum2=" + playerNum2 + ", outcome=" + outcome + ""); 
 			try {
 				new Parser().parse(playType, playerNum, numYards, playerNum2, outcome, game);
 			} catch (Exception e) {

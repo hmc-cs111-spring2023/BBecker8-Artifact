@@ -2,6 +2,7 @@ package my.dsl.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+//@JsonIgnoreType
 public class PassingPlayer extends Player{
 
 	public PassingPlayer(int number) {
@@ -95,18 +96,18 @@ public class PassingPlayer extends Player{
 				+ ", longest=" + this.longest + "]";
 	}
 	
-	public List<Object> toList() {
-		List<Object> newList = new ArrayList<Object>();
+	public ArrayList<Object> toList() {
+		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);
 		newList.add(comp);
-		newList.add(compPercent);
-		newList.add(interceptionsQB);
-		newList.add(inc);
 		newList.add(eventCount);
 		newList.add(yards);
-		newList.add(tds);
+		newList.add(compPercent);
 		newList.add(avg);
+		newList.add(tds);
+		newList.add(interceptionsQB);
 		newList.add(longest);
+		newList.add(inc);
 		
 		return newList;
 		

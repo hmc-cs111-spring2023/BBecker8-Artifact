@@ -52,8 +52,8 @@ public class KickingPlayer extends Player{
 				+ ", avg=" + avg + ", longest=" + longest + ", touchBack=" + touchBack + "]";
 	}
 	
-	public List<Object> toList() {
-		List<Object> newList = new ArrayList<Object>();
+	public ArrayList<Object> toList() {
+		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);
 		newList.add(eventCount);
 		newList.add(yards);

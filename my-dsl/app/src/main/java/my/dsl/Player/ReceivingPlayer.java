@@ -53,15 +53,14 @@ public class ReceivingPlayer extends Player{
 				+ yards + ", avg=" + avg + ", tds=" + tds + ", longest=" + longest + "]";
 	}
 	
-	public List<Object> toList() {
-		List<Object> newList = new ArrayList<Object>();
+	public ArrayList<Object> toList() {
+		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);
 		newList.add(eventCount);
 		newList.add(yards);
 		newList.add(avg);
-		newList.add(tds);
 		newList.add(longest);
-		
+		newList.add(tds);
 		
 		return newList;
 		

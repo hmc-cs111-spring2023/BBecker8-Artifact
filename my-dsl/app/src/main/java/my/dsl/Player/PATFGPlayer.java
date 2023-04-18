@@ -21,8 +21,18 @@ public class PATFGPlayer extends Player{
 	
 	public PATFGPlayer updatePlayer() {
 		super.eventCount += 1;
-		super.percentPAT = ((double) super.madePATs)/((double)super.numPATs);
-		super.percentFG = ((double) super.madeFGs)/((double)super.numFGs);
+		if ( (((double) super.madePATs)/((double)super.numPATs)) > 0.0) {
+			super.percentPAT = ((double) super.madePATs)/((double)super.numPATs);
+		} else {
+			super.percentPAT = 0.0;
+		}
+		
+		if ( (((double) super.madeFGs)/((double)super.numFGs)) > 0.0) {
+			super.percentFG = ((double) super.madeFGs)/((double)super.numFGs);
+		} else {
+			super.percentFG = 0.0;
+		}
+		
 		super.madeTOT = super.madePATs + super.madeFGs;
 		super.points = super.madePATs + (3 * super.madeFGs);
 		return this;
@@ -86,17 +96,17 @@ public class PATFGPlayer extends Player{
 				+ ", points=" + points + "]";
 	}
 	
-	public List<Object> toList() {
-		List<Object> newList = new ArrayList<Object>();
+	public ArrayList<Object> toList() {
+		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);
 		newList.add(eventCount);
-		newList.add(longest);
 		newList.add(madePATs);
 		newList.add(numPATs);
 		newList.add(percentPAT);
 		newList.add(madeFGs);
 		newList.add(numFGs);
 		newList.add(percentFG);
+		newList.add(longest);
 		newList.add(madeTOT);
 		newList.add(points);
 		

@@ -2,6 +2,7 @@ package my.dsl.Game;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import my.dsl.Parser.Parser;
 import my.dsl.Player.*;
 
 
@@ -9,7 +10,7 @@ import my.dsl.Player.*;
 public class Game {
 	
 	
-	private HashMap<String, ArrayList<Player>> playTypeMap;
+	private  HashMap<String, ArrayList<Player>> playTypeMap;
 
     public Game() {
     	this.playTypeMap = new HashMap<String, ArrayList<Player>>();
@@ -87,11 +88,22 @@ public class Game {
 	    	((PORPlayer) p).setYards(player.getYards()).setTDs(player.getTds()).setFCs(player.getFairCatch()).updatePlayer();
 	    	break;
 	    case "Defense":
-	    	((DefensivePlayer) p).setForLoss(player.getForLoss()).setSacks(player.getSacks()).setINT(player.getInterception()).setINTRetY(player.getIntRetYards()).setINTTDs(player.getIntTds()).setTippass(player.getTippass()).setFF(player.getForcedFum()).setRecovered(player.getRecovered()).setFumRetY(player.getFumRetYards()).setFumTDs(player.getFumTds()).setBlockedKick(player.getBlockedKicks()).setSafteys(player.getSafetys());
+	    	((DefensivePlayer) p).setForLoss(player.getForLoss()).setSacks(player.getSacks()).setINT(player.getInterception()).setINTRetY(player.getIntRetYards()).setINTTDs(player.getIntTds()).setTippass(player.getTippass()).setFF(player.getForcedFum()).setRecovered(player.getRecovered()).setFumRetY(player.getFumRetYards()).setFumTDs(player.getFumTds()).setBlockedKick(player.getBlockedKicks()).setSafteys(player.getSafetys()).updateDefensivePlayer();
+	    	break;
 	    default:
-			throw new Exception("Playtype did not match", new Throwable(playType));
+	    	Parser parser = new Parser();
+	    	System.out.println(parser.isDefensivePlay(playType));
+	    	System.out.println(playType);
+	    	if (parser.isDefensivePlay(playType)) {
+		    	((DefensivePlayer) p).setForLoss(player.getForLoss()).setSacks(player.getSacks()).setINT(player.getInterception()).setINTRetY(player.getIntRetYards()).setINTTDs(player.getIntTds()).setTippass(player.getTippass()).setFF(player.getForcedFum()).setRecovered(player.getRecovered()).setFumRetY(player.getFumRetYards()).setFumTDs(player.getFumTds()).setBlockedKick(player.getBlockedKicks()).setSafteys(player.getSafetys()).updateDefensivePlayer();
+		    	break;
+	    	} else {
+	    		throw new Exception("Playtype did not match", new Throwable(playType));
+	    	}
 	 
 		}
 	
 	}
+	
+
 }

@@ -1,6 +1,7 @@
 package my.dsl.Player;
 
-public abstract class Player {
+// @JsonIgnoreType
+public abstract class Player extends Object{
     // all possible variables for players
 	protected final int number; 
 	protected int eventCount;
@@ -188,4 +189,5 @@ public abstract class Player {
 				+ ", avg=" + avg + ", tds=" + tds + ", longest=" + longest + "]";
 	}
 	
+
 }

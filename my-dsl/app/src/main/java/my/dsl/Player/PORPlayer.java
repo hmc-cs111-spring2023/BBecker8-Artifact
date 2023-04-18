@@ -33,7 +33,7 @@ public class PORPlayer extends Player{
 	public PORPlayer setTDs(String tds) throws Exception {
 		if (tds.equals("TD")) {
 			super.tds += 1;
-		} else if (tds.equals("null")){
+		} else if (tds.equals("null") || tds.equals("FC")){
 			return this;
 		} else {
 			throw new Exception("Outcome did not match", new Throwable(tds));
@@ -49,7 +49,7 @@ public class PORPlayer extends Player{
 	public PORPlayer setFCs(String fc) throws Exception {
 		if (fc.equals("FC")) {
 			super.fairCatch += 1;
-		} else if (fc.equals("null")){
+		} else if (fc.equals("null") || fc.equals("TD")){
 			return this;
 		} else {
 			throw new Exception("Outcome did not match", new Throwable(fc));
@@ -68,14 +68,15 @@ public class PORPlayer extends Player{
 				+ ", avg=" + avg + ", tds=" + tds + ", longest=" + longest + ", fairCatch=" + fairCatch + "]";
 	}
 	
-	public List<Object> toList() {
-		List<Object> newList = new ArrayList<Object>();
+	public ArrayList<Object> toList() {
+		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);
 		newList.add(eventCount);
 		newList.add(yards);
 		newList.add(avg);
 		newList.add(longest);
 		newList.add(fairCatch);
+		newList.add(tds);
 		
 		return newList;
 		

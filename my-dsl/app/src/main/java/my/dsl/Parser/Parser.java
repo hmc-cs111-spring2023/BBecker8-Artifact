@@ -33,47 +33,38 @@ public class Parser {
 	
 		if (isPassPlay(playtype)) {	
 			pass(game, playtype, playerNum, numYards, playerNum2, outcome);
-			System.out.println(game);
 		}
 		
 		else if (isRunPlay(playtype)) {
 			run(game, playtype, playerNum, numYards, playerNum2, outcome);
-			System.out.println(game);
 		}
 		
 		else if (isKickPlay(playtype)) {
 			kick(game, playtype, playerNum, numYards, playerNum2, outcome);
-			System.out.println(game);
 		}
 		
 		else if (isPuntPlay(playtype)) {
 			punt(game, playtype, playerNum, numYards, playerNum2, outcome);
-			System.out.println(game);
 		}
 		
 		else if (isPATPlay(playtype)) {
 			pat(game, playtype, playerNum, numYards, playerNum2, outcome);
-			System.out.println(game);
 		}
 		
 		else if (isFGPlay(playtype)) {
 			fg(game, playtype, playerNum, numYards, playerNum2, outcome);
-			System.out.println(game);
 		}
 		
 		else if (isKORPlay(playtype)) {
 			kor(game, playtype, playerNum, numYards, playerNum2, outcome);
-			System.out.println(game);
 		}
 		
 		else if (isPORPlay(playtype)) {
 			por(game, playtype, playerNum, numYards, playerNum2, outcome);
-			System.out.println(game);
 		}
 		
 		else if (isDefensivePlay(playtype)) {
 			defense(game, playtype, playerNum, numYards, playerNum2, outcome);
-			System.out.println(game);
 		}
 		
 		else if (isSackPlay(playtype)) {
@@ -82,7 +73,6 @@ public class Parser {
 			} else {
 				defense(game, playtype, playerNum, numYards, playerNum2, outcome);
 			}
-			System.out.println(game);
 		} else {
 			throw new Exception("Playtype not found", new Throwable(playtype));
 		}
@@ -142,7 +132,7 @@ public class Parser {
 			game.add("Defense", new DefensivePlayer(toInt(parseNumber(playerNum))).setForLoss(1).setForLossY(toInt(parseNumber(numYards))).updateDefensivePlayer());
 		}
 		else if (playtype.equals("sack")) {
-			game.add("Defense", new DefensivePlayer(toInt(parseNumber(playerNum))).setSacks(1).updateDefensivePlayer());
+			game.add("Defense", new DefensivePlayer(toInt(parseNumber(playerNum))).setSacks(1).setForLossY(toInt(parseNumber(numYards))).updateDefensivePlayer());
 		}
 		else if (playtype.equals("int")) {
 			game.add("Defense", new DefensivePlayer(toInt(parseNumber(playerNum))).setINT(1).setINTRetY(toInt(parseNumber(numYards))).setINTTDs(outcome, playtype).updateDefensivePlayer());
@@ -181,8 +171,6 @@ public class Parser {
 	}
 	
 	// determines the type of play given the playtype string for each play type
-	// takes into consideration each variation of a user input
-	// TODO may look for a separate parser to do same job
 	private boolean isSackPlay(String input) {
 		// Convert the input to lowercase for case-insensitive matching
 	    input = input.toLowerCase();
@@ -332,7 +320,7 @@ public class Parser {
 	    return false;
 	}
 	
-	private boolean isDefensivePlay(String input) {
+	public boolean isDefensivePlay(String input) {
 	    // Convert the input to lowercase for case-insensitive matching
 	    input = input.toLowerCase();
 	    
@@ -373,7 +361,6 @@ public class Parser {
 	    }
 	    
 	    // Parse the input as an integer
-	    // TODO number not found try catch
 	    try {
 	    	int number = Integer.parseInt(input);
 	    	// If the input was negative, make the number negative

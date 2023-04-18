@@ -1,7 +1,6 @@
 package my.dsl.Player;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DefensivePlayer extends Player{
 	
@@ -27,7 +26,12 @@ public class DefensivePlayer extends Player{
 	}
 	// setters for the defense for each stat type 
 	public DefensivePlayer updateDefensivePlayer() {
-		super.flAVG = ((double) super.flYards / (double) super.forLoss);
+		if ( ((double) super.flYards / (double) super.forLoss) > 0.0) {
+			super.flAVG = ((double) super.flYards / (double) super.forLoss);
+		} else {
+			super.flAVG = 0.0;
+		}
+		
 		super.points = (6*super.intTds) + (6*super.fumTds) + (2*super.safetys);
 		return this;
 	}
@@ -42,6 +46,7 @@ public class DefensivePlayer extends Player{
 	}
 	
 	public DefensivePlayer setSacks(int n) {
+//		super.forLoss += n;
 		super.sacks += n;
 		return this;
 	}
@@ -61,7 +66,9 @@ public class DefensivePlayer extends Player{
 	public DefensivePlayer setINTTDs(String n, String b) throws Exception {
 		if(n.equals("TD") && b.equals("int")){
 			super.intTds += 1;
-		} else {
+		} else if (n.equals("null")){
+			return this;
+		}else {
 			throw new Exception("Outcome did not match", new Throwable(n));
 		}
 		return this;
@@ -81,7 +88,9 @@ public class DefensivePlayer extends Player{
 	public DefensivePlayer setRecovered(String n) throws Exception {
 		if(n.equals("REC")){
 			super.recovered += 1;
-		} else {
+		} else if (n.equals("null") || n.equals("TD")){
+			return this;
+		}else {
 			throw new Exception("Outcome did not match", new Throwable(n));
 		}
 		return this;
@@ -92,10 +101,12 @@ public class DefensivePlayer extends Player{
 		return this;
 	}
 	public DefensivePlayer setFumTDs(String n, String b) throws Exception {
-		if(n.equals("TD") && b.equals("fum")){
+		if(n.equals("TD") && (b.equals("fum") || b.equals("ff"))){
 			super.fumTds += 1;
 			super.recovered += 1;
-		} else {
+		} else if (n.equals("null") || n.equals("REC")){
+			return this;
+		}else {
 			throw new Exception("Outcome did not match", new Throwable(n));
 		}
 		return this;
@@ -112,7 +123,9 @@ public class DefensivePlayer extends Player{
 	public DefensivePlayer setBlockedKick(String n) throws Exception {
 		if(n.equals("FG") || n.equals("PAT") || n.equals("PUNT")){
 			super.blockedKicks += 1;
-		} else {
+		} else if (n.equals("null")){
+			return this;
+		}else {
 			throw new Exception("Outcome did not match", new Throwable(n));
 		}
 		return this;
@@ -131,8 +144,8 @@ public class DefensivePlayer extends Player{
 				+ flYards + ", flAVG=" + flAVG + "]";
 	}
 	
-	public List<Object> toList() {
-		List<Object> newList = new ArrayList<Object>();
+	public ArrayList<Object> toList() {
+		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);
 		newList.add(forLoss);
 		newList.add(flYards);
