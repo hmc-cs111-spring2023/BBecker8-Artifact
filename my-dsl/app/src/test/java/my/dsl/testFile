@@ -1,0 +1,33 @@
+P 11 40y 12 TD
+P 11 3y 13
+P 1 INT
+P 11 INC
+R 24 20y TD
+R 8 20y
+R 67 -3y
+PAT 31 20y GOOD
+PAT 31 20y MISS
+FG 31 20y GOOD
+FG 31 20y MISS
+kick 54 45y
+kick 54 60y TB
+punt 65 32y
+punt 65 50y
+KOR 12 34y
+KOR 11 80y TD
+POR 21 10y
+POR 11 67y TD
+POR 8 FC
+sack 11 -8y
+fl 40 5y
+sack 22 5y
+fum 41 NREC
+fum 88 5y REC
+fum 98 30y TD
+int 87 5y 
+int 87 30y TD
+tp 40
+bkick 40 PUNT
+bkick 37 FG
+bkick 37 PAT
+Safety 45

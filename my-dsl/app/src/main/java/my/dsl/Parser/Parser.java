@@ -68,14 +68,7 @@ public class Parser {
 		else if (isDefensivePlay(playtype)) {
 			defense(game, playtype, playerNum, numYards, playerNum2, outcome);
 		}
-		
-		else if (isSackPlay(playtype)) {
-			if(toInt(parseNumber(numYards)) < 0) {
-				run(game, playtype, playerNum, numYards, playerNum2, outcome);
-			} else {
-				defense(game, playtype, playerNum, numYards, playerNum2, outcome);
-			}
-		} else {
+		else {
 			throw new Exception("Playtype not found", new Throwable(playtype));
 		}
 		
@@ -133,8 +126,13 @@ public class Parser {
 		if (playtype.equals("forloss") || playtype.equals("fl")) {
 			game.add("Defense", new DefensivePlayer(toInt(parseNumber(playerNum))).setForLoss(1).setForLossY(toInt(parseNumber(numYards))).updateDefensivePlayer());
 		}
-		else if (playtype.equals("sack")) {
-			game.add("Defense", new DefensivePlayer(toInt(parseNumber(playerNum))).setSacks(1).setForLossY(toInt(parseNumber(numYards))).updateDefensivePlayer());
+		else if (playtype.equals("sack") || playtype.equals("sck")) {
+			if((toInt(parseNumber(numYards)) < 0)) {
+				game.add("Rush", new RushingPlayer(toInt(parseNumber(playerNum))).setYards(toInt(parseNumber(numYards))).setTDs(outcome).updatePlayer());
+			} else {
+				game.add("Defense", new DefensivePlayer(toInt(parseNumber(playerNum))).setSacks(1).setForLossY(toInt(parseNumber(numYards))).updateDefensivePlayer());
+
+			}
 		}
 		else if (playtype.equals("int")) {
 			game.add("Defense", new DefensivePlayer(toInt(parseNumber(playerNum))).setINT(1).setINTRetY(toInt(parseNumber(numYards))).setINTTDs(outcome, playtype).updateDefensivePlayer());
@@ -158,7 +156,7 @@ public class Parser {
 	
 	
 	// turns an object to an integer
-	private int toInt(Object n) {
+	public int toInt(Object n) {
 		if (n instanceof Integer) {
 			return (int) n;
 		}
@@ -166,23 +164,23 @@ public class Parser {
 	}
 	
 	// determines the type of play given the playtype string for each play type
-	private boolean isSackPlay(String input) {
-		// Convert the input to lowercase for case-insensitive matching
-	    input = input.toLowerCase();
+	// private boolean isSackPlay(String input) {
+	// 	// Convert the input to lowercase for case-insensitive matching
+	//     input = input.toLowerCase();
 	    
-	    // Define an array of strings that represent variations of the word "sack"
-	    String[] sackVariations = {"sack", "sck"};
+	//     // Define an array of strings that represent variations of the word "sack"
+	//     String[] sackVariations = {"sack", "sck"};
 	    
-	    // Check if the input matches any of the sack variations
-	    for (String sack : sackVariations) {
-	        if (input.equals(sack)) {
-	            return true;
-	        }
-	    }
+	//     // Check if the input matches any of the sack variations
+	//     for (String sack : sackVariations) {
+	//         if (input.equals(sack)) {
+	//             return true;
+	//         }
+	//     }
 	    
-	    // If the input does not match any sack variations, it is not a sack play
-	    return false;
-	}
+	//     // If the input does not match any sack variations, it is not a sack play
+	//     return false;
+	// }
 	
 	private boolean isPassPlay(String input) {
 	    // Convert the input to lowercase for case-insensitive matching
@@ -334,7 +332,7 @@ public class Parser {
 	}
 	
 	// parses the name or a number from a string input. Useful for all number related fields
-	private static Object parseNumber(String input) throws Exception {
+	public Object parseNumber(String input) throws Exception {
 		if (input == "null") {
 	        return "null";
 	    }

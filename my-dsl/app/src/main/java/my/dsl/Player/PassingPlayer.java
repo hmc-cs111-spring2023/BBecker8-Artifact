@@ -23,9 +23,20 @@ public class PassingPlayer extends Player{
 	// setters for the passing Player for each stat type 
 	public PassingPlayer updatePlayer() {
 		super.eventCount += 1;
+		
 		super.comp = super.eventCount - super.interceptionsQB - super.inc;
-		super.avg = ((double) super.yards)/((double)super.comp);
-		super.compPercent = (((double)super.comp)/((double)super.eventCount));
+		
+		if ( (((double) super.yards)/((double)super.comp)) > 0.0) {
+			super.avg = ((double) super.yards)/((double)super.comp);
+		} else {
+			super.avg = 0.0;
+		}
+
+		if ( (((double)super.comp)/((double)super.eventCount)) > 0.0) {
+			super.compPercent = (((double)super.comp)/((double)super.eventCount));
+		} else {
+			super.compPercent = 0.0;
+		}
 		return this;
 	}
 	

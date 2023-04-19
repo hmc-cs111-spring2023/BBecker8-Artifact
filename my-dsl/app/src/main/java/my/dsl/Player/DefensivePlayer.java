@@ -48,7 +48,7 @@ public class DefensivePlayer extends Player{
 	}
 	
 	public DefensivePlayer setSacks(int n) {
-//		super.forLoss += n;
+		super.forLoss += n;
 		super.sacks += n;
 		return this;
 	}
@@ -90,7 +90,7 @@ public class DefensivePlayer extends Player{
 	public DefensivePlayer setRecovered(String n) throws Exception {
 		if(n.equals("REC")){
 			super.recovered += 1;
-		} else if (n.equals("null") || n.equals("TD")){
+		} else if (n.equals("null") || n.equals("TD") ||  n.equals("NREC")){
 			return this;
 		}else {
 			throw new Exception("Outcome did not match", new Throwable(n));
@@ -106,7 +106,7 @@ public class DefensivePlayer extends Player{
 		if(n.equals("TD") && (b.equals("fum") || b.equals("ff"))){
 			super.fumTds += 1;
 			super.recovered += 1;
-		} else if (n.equals("null") || n.equals("REC")){
+		} else if (n.equals("null") || n.equals("REC") ||  n.equals("NREC")){
 			return this;
 		}else {
 			throw new Exception("Outcome did not match", new Throwable(n));

@@ -11,7 +11,7 @@ import my.dsl.Game.*;
  */
 public class StringGrouping {
 	
-	private static final Pattern STRING_INPUT_PATTERN = Pattern.compile("^(?<playtype>\\w+)\\s?(?<playerNumber>[0-9][0-9]*[^a-z])?\\s?(?<numyards>-?\\d+y)?\\s?(?<playerNumber2>\\d+)?(?:\\s(?<outcome>[A-Z]+))?\\s?$");
+	private static final Pattern STRING_INPUT_PATTERN = Pattern.compile("^(?<playtype>\\w+)\\s?(?<playerNumber>\\d+)\\s?(?<numyards>-?\\d+y)?\\s?(?<playerNumber2>\\d+)?(?:\\s(?<outcome>[A-Z]+))?\\s?$");
 	
 	
 	private String playType;
