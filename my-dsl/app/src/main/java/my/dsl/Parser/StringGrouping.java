@@ -2,9 +2,13 @@ package my.dsl.Parser;
 
 import java.util.function.Function;
 import java.util.regex.*;
-
 import my.dsl.Game.*;
 
+/*
+* Class for parsing input string and providing grouping for proper inputs
+*
+*
+ */
 public class StringGrouping {
 	
 	private static final Pattern STRING_INPUT_PATTERN = Pattern.compile("^(?<playtype>\\w+)\\s?(?<playerNumber>[0-9][0-9]*[^a-z])?\\s?(?<numyards>-?\\d+y)?\\s?(?<playerNumber2>\\d+)?(?:\\s(?<outcome>[A-Z]+))?\\s?$");

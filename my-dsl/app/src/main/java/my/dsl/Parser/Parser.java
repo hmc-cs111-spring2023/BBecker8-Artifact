@@ -2,32 +2,34 @@ package my.dsl.Parser;
 
 import my.dsl.Game.*;
 import my.dsl.Player.*;
-
+/*
+* Class for parsing input data and adds correct player data to an instance of a game
+*
+ */
 public class Parser {
-	// build parser for instance when playtype is "P" or "Pass" use game1.add("Pass", new PassingPlayer(11, "Kaden", 0, 0, 0, 0, 0, 0, 0, 0, 0).setPlayer(10, 2, 1, 1, 1));
-				// passing in and converting number values from string to int ect...
-				// string to int
-				// outcome methods INT INC FUM ...
-				// pass passplayer (deals with  one or two players/stat types if 2) P Pass pass
-				// run runplayer R Run run
-				// PAT patfgplayer PAT pat Pat 
-				// FG patfgplayer FG fg Fg
-				// kick kickplayer Kick kick KICK 
-				// punt puntplayer Punt punt PUNT
-				// KOR korplayer KOR kor Kor
-				// POR porplayer POR  Por por PR pr Pr
-				
-				// sack offense runplayer Sack sack SACK sk
-				// penalty extrastat 
-				// tackle defenseplayer tackle Tackle Tkl TKL tkl
-				// tfl defenseplayer TFL Tfl tfl
-				// sack defense defenseplayer Sack sack SACK sk
-				// fum defenseplayer Fumble fumble fum Fum FUM
-				// int defenseplayer interception Interception INT int
-				// tippass defenseplayer tip Tip TipP TP 
-				// blocked kick  defenseplayer BK BKick blkck
-				// saftey defenseplayer sfty sft 
+	// passing in and converting number values from string to int ect...
+	// string to int
+	// outcome methods INT INC FUM ...
+	// pass passplayer (deals with  one or two players/stat types if 2) P Pass pass
+	// run runplayer R Run run
+	// PAT patfgplayer PAT pat Pat 
+	// FG patfgplayer FG fg Fg
+	// kick kickplayer Kick kick KICK 
+	// punt puntplayer Punt punt PUNT
+	// KOR korplayer KOR kor Kor
+	// POR porplayer POR  Por por PR pr Pr
 	
+	// sack offense runplayer Sack sack SACK sk
+	// penalty extrastat 
+	// tackle defenseplayer tackle Tackle Tkl TKL tkl
+	// tfl defenseplayer TFL Tfl tfl
+	// sack defense defenseplayer Sack sack SACK sk
+	// fum defenseplayer Fumble fumble fum Fum FUM
+	// int defenseplayer interception Interception INT int
+	// tippass defenseplayer tip Tip TipP TP 
+	// blocked kick  defenseplayer BK BKick blkck
+	// saftey defenseplayer sfty sft 
+
 	// Parses each input string type and adds the correct input to each field within a specified game.
 	protected void parse(String playtype, String playerNum, String numYards, String playerNum2, String outcome, Game game) throws Exception {
 	
@@ -154,13 +156,6 @@ public class Parser {
 		return game;
 	}
 	
-	// turns an object to a string 
-	// private String toString(Object n) {
-	// 	if (n instanceof String) {
-	// 		return (String) n;
-	// 	}
-	// 	return "what";
-	// }
 	
 	// turns an object to an integer
 	private int toInt(Object n) {
@@ -175,17 +170,17 @@ public class Parser {
 		// Convert the input to lowercase for case-insensitive matching
 	    input = input.toLowerCase();
 	    
-	    // Define an array of strings that represent variations of the word "pass"
+	    // Define an array of strings that represent variations of the word "sack"
 	    String[] sackVariations = {"sack", "sck"};
 	    
-	    // Check if the input matches any of the pass variations
+	    // Check if the input matches any of the sack variations
 	    for (String sack : sackVariations) {
 	        if (input.equals(sack)) {
 	            return true;
 	        }
 	    }
 	    
-	    // If the input does not match any pass variations, it is not a pass play
+	    // If the input does not match any sack variations, it is not a sack play
 	    return false;
 	}
 	
@@ -211,13 +206,13 @@ public class Parser {
 	    // Convert the input to lowercase for case-insensitive matching
 	    input = input.toLowerCase();
 	    
-	    // Check if the input matches any of the pass variations
+	    // Check if the input matches any of the PAT variations
 	   
         if (input.equals("pat")) {
             return true;
         }
 	    
-	    // If the input does not match any pass variations, it is not a pass play
+	    // If the input does not match any PAT variations, it is not a PAT play
      
         return false;
 	}
@@ -229,14 +224,14 @@ public class Parser {
 	    // Define an array of strings that represent variations of the word "run"
 	    String[] runVariations = {"run", "r", "rush"};
 	    
-	    // Check if the input matches any of the pass variations
+	    // Check if the input matches any of the Run variations
 	    for (String run : runVariations) {
 	        if (input.equals(run)) {
 	            return true;
 	        }
 	    }
 	    
-	    // If the input does not match any pass variations, it is not a pass play
+	    // If the input does not match any Run variations, it is not a Run play
 	    return false;
 	}
 	
@@ -244,12 +239,12 @@ public class Parser {
 	    // Convert the input to lowercase for case-insensitive matching
 	    input = input.toLowerCase();
 	    
-	    // Check if the input matches any of the pass variations
+	    // Check if the input matches any of the FG variations
         if (input.equals("fg")) {
             return true;
         }
 	    
-	    // If the input does not match any pass variations, it is not a pass play
+	    // If the input does not match any FG variations, it is not a FG play
         return false;
 	}
 	
@@ -257,17 +252,17 @@ public class Parser {
 	    // Convert the input to lowercase for case-insensitive matching
 	    input = input.toLowerCase();
 	    
-	    // Define an array of strings that represent variations of the word "pass"
+	    // Define an array of strings that represent variations of the word "Kick"
 	    String[] kickVariations = {"kick", "k"};
 	    
-	    // Check if the input matches any of the pass variations
+	    // Check if the input matches any of the Kick variations
 	    for (String kick : kickVariations) {
 	        if (input.equals(kick)) {
 	            return true;
 	        }
 	    }
 	    
-	    // If the input does not match any pass variations, it is not a pass play
+	    // If the input does not match any Kick variations, it is not a Kick play
 	    return false;
 	}
 	
@@ -275,17 +270,17 @@ public class Parser {
 	    // Convert the input to lowercase for case-insensitive matching
 	    input = input.toLowerCase();
 	    
-	    // Define an array of strings that represent variations of the word "pass"
+	    // Define an array of strings that represent variations of the word "Punt"
 	    String[] puntVariations = {"punt", "pt"};
 	    
-	    // Check if the input matches any of the pass variations
+	    // Check if the input matches any of the Punt variations
 	    for (String punt : puntVariations) {
 	        if (input.equals(punt)) {
 	            return true;
 	        }
 	    }
 	    
-	    // If the input does not match any pass variations, it is not a pass play
+	    // If the input does not match any Punt variations, it is not a Punt play
 	    return false;
 	}
 	
@@ -293,12 +288,12 @@ public class Parser {
 	    // Convert the input to lowercase for case-insensitive matching
 	    input = input.toLowerCase();
 	    
-	    // Check if the input matches any of the pass variations
+	    // Check if the input matches any of the KOR variations
         if (input.equals("kor")) {
             return true;
         }
 	    
-	    // If the input does not match any pass variations, it is not a pass play
+	    // If the input does not match any KOR variations, it is not a KOR play
         return false;
 	}
 	
@@ -306,17 +301,17 @@ public class Parser {
 	    // Convert the input to lowercase for case-insensitive matching
 	    input = input.toLowerCase();
 	    
-	    // Define an array of strings that represent variations of the word "pass"
+	    // Define an array of strings that represent variations of the word "POR"
 	    String[] puntRVariations = {"por", "pr"};
 	    
-	    // Check if the input matches any of the pass variations
+	    // Check if the input matches any of the POR variations
 	    for (String puntR : puntRVariations) {
 	        if (input.equals(puntR)) {
 	            return true;
 	        }
 	    }
 	    
-	    // If the input does not match any pass variations, it is not a pass play
+	    // If the input does not match any POR variations, it is not a POR play
 	    return false;
 	}
 	
@@ -327,19 +322,18 @@ public class Parser {
 	    // Define an array of strings that represent variations of defensive words
 	    String[] defenseVariations = {"forloss", "fl", "sack", "sck", "int", "tippass", "tp", "tipp", "fum", "ff", "ffum", "forcedf", "blockedk", "bk", "bkick", "safety", "sfty"};
 	    
-	    // Check if the input matches any of the pass variations
+	    // Check if the input matches any of the Defensive variations
 	    for (String defense : defenseVariations) {
 	        if (input.equals(defense)) {
 	            return true;
 	        }
 	    }
 	    
-	    // If the input does not match any pass variations, it is not a pass play
+	    // If the input does not match any Defensive variations, it is not a Defensive play
 	    return false;
 	}
 	
-	// parses the name or a number from a string input. USeful for all number related fields
-	
+	// parses the name or a number from a string input. Useful for all number related fields
 	private static Object parseNumber(String input) throws Exception {
 		if (input == "null") {
 	        return "null";

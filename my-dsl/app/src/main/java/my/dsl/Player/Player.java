@@ -1,7 +1,9 @@
 package my.dsl.Player;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
+/*
+ * class representing a Any given player and their possible stats
+ */
 @JsonIgnoreType
 public abstract class Player extends Object{
     // all possible variables for players

@@ -1,7 +1,9 @@
 package my.dsl.Player;
 import java.util.ArrayList;
 
-
+/*
+ * class representing a PAT or FG player and their possible stats
+ */
 public class PATFGPlayer extends Player{
 	
 	public PATFGPlayer(int number) {
@@ -96,6 +98,7 @@ public class PATFGPlayer extends Player{
 				+ ", points=" + points + "]";
 	}
 	
+	// Turns stats into a list
 	public ArrayList<Object> toList() {
 		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);

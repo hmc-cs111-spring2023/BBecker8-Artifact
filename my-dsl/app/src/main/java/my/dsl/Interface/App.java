@@ -20,14 +20,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/*
+* Class that builds the interface and interacts with multiple game instances as well as receives all error messages
+*
+*/
 public class App extends Application {
+    private static String notValidText = "/workspaces/Bbecker8-Artifact/my-dsl/app/src/main/java/my/dsl/Interface/NotValidDSL_text";
+    private static String notValidPlay = "/workspaces/Bbecker8-Artifact/my-dsl/app/src/main/java/my/dsl/Interface/NotValidPlayType_text";
+    private static String notValidOutcome = "/workspaces/Bbecker8-Artifact/my-dsl/app/src/main/java/my/dsl/Interface/NotValidOutcome_text";
     static Game game = new Game();
 	private static ArrayList<Game> games = new ArrayList<Game>();
     public static void main(String[] args) {
         launch(args);
     }
 
+    // Builds the interface, interacts with user commands
     @Override
     public void start(Stage primaryStage) throws Exception {
         StringGrouping group = new StringGrouping();
@@ -51,56 +58,61 @@ public class App extends Application {
             VBox.setVgrow(scrollPane, Priority.ALWAYS);
 
             textField.setPromptText("Enter a string...");
+            label.setText("To get Started enter a string following the documentation\n\n"
+                            +"Additional features include:\n\n" 
+                            +"Start New Game: Title\n\n"
+                            +"Edit Past Game: spreadsheet number\n\n");
+            
             textField.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
-                    // Update the label with the entered string
-                    System.out.println("You entered: " + textField.getText());
 
                     // send input through to data structure
                     try {
                         if(textField.getText().contains("Start New Game:")) {
 	                		game = new Game();
 	                		games.add(game);
+                            api.setNewGame(textField.getText().substring(("Start New Game:").length(), textField.getText().length()));
 	                		textField.setText("");
                             label.setText("");
-	                		api.setNewGame(textField.getText().substring(("Start New Game:").length(), textField.getText().length()));
-	                		
 	                	} else if(textField.getText().contains("Edit Past Game:")){
-	                		textField.setText("");
-                            label.setText("");
 	                		api.getGameSheet(Integer.parseInt(textField.getText().substring(("Edit Past Game:").length(), textField.getText().length()).trim()));
 	                		game = new Game();
-        	                // System.out.println(Integer.parseInt(textField.getText().substring(("Edit Past Game").length(), textField.getText().length()).trim())-1);
         	                game.setGame(games.get(Integer.parseInt(textField.getText().substring(("Edit Past Game:").length(), textField.getText().length()).trim())-1));
+                            textField.setText("");
+                            label.setText("");
 	                	} else {
 		                    group.update(textField.getText(), game);
 		                    label.setText("");
 		                    textField.setText("");
 		                    
-		                    if (api.deleteSheet() == 200) {
-		                    	if (api.postGame(game)== 200) {
+		                    if (api.deleteSheet() == 200 || api.deleteSheet() == 400) {
+		                    	if (api.postGame(game) == 200) {
 		                    		label.setText("Success");
-		                    	} // TODO error handling
-		                    } // TODO error handling
+		                    	} else {
+                                    throw new Exception("Game could not Be Posted");
+                                }
+		                    } else {
+                                throw new Exception("Sheet Could Not Be Deleted");
+                            }
 	                	}
                     } catch (Exception e1) {
                         if (e1.getMessage().equals("Input Format of DSL is Not Valid")) {
                             try {
-                                label.setText(e1.getCause().getMessage() + getFileContent("/workspaces/Bbecker8-Artifact/my-dsl/app/src/main/java/my/dsl/Interface/NotValidDSL_text"));
+                                label.setText(e1.getCause().getMessage() + getFileContent(notValidText));
                             } catch (Exception e2) {
                                 e2.printStackTrace();
                             }
                         }
                         if (e1.getMessage().equals("Playtype not found")) {
                             try {
-                                label.setText(e1.getCause().getMessage() + getFileContent("/workspaces/Bbecker8-Artifact/my-dsl/app/src/main/java/my/dsl/Interface/NotValidPlayType_text"));
+                                label.setText(e1.getCause().getMessage() + getFileContent(notValidPlay));
                             } catch (Exception e2) {
                                 e2.printStackTrace();
                             }
                         }
                         if (e1.getMessage().equals("Outcome did not match")) {
                             try {
-                                label.setText(e1.getCause().getMessage() + getFileContent("/workspaces/Bbecker8-Artifact/my-dsl/app/src/main/java/my/dsl/Interface/NotValidOutcome_text"));
+                                label.setText(e1.getCause().getMessage() + getFileContent(notValidOutcome ));
                             } catch (Exception e2) {
                                 e2.printStackTrace();
                             }
@@ -114,11 +126,12 @@ public class App extends Application {
 
             // Set the scene on the primary stage
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Text Input App");
+            primaryStage.setTitle("Domain Specific Language Interface For Football Stats");
             primaryStage.show();
         }
     }
 
+    // grabs the contents of a file for error messaging
     public static String getFileContent(String file) throws Exception{
     	try {
             BufferedReader br = new BufferedReader(new FileReader(file));

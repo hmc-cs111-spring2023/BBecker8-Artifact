@@ -1,6 +1,9 @@
 package my.dsl.Player;
 import java.util.ArrayList;
 
+/*
+ * class representing a rushing player and their possible stats
+ */
 public class RushingPlayer extends Player{
 
 	public RushingPlayer(int number) {
@@ -50,6 +53,7 @@ public class RushingPlayer extends Player{
 				+ ", avg=" + avg + ", tds=" + tds + ", longest=" + longest + "]";
 	}
 	
+	// turns stats into a list
 	public ArrayList<Object> toList() {
 		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);

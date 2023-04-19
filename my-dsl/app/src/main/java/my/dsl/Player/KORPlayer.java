@@ -1,7 +1,9 @@
 package my.dsl.Player;
 import java.util.ArrayList;
 
-
+/*
+ * class representing a KOR player and their possible stats
+ */
 public class KORPlayer extends Player{
 	
 	public KORPlayer(int number) {
@@ -51,6 +53,7 @@ public class KORPlayer extends Player{
 				+ ", avg=" + avg + ", tds=" + tds + ", longest=" + longest + "]";
 	}
 	
+	// turns stats into a list
 	public ArrayList<Object> toList() {
 		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);

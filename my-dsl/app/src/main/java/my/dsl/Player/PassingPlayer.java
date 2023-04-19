@@ -1,7 +1,9 @@
 package my.dsl.Player;
 import java.util.ArrayList;
 
-
+/*
+ * class representing a passing player and their possible stats
+ */
 //@JsonIgnoreType
 public class PassingPlayer extends Player{
 
@@ -96,6 +98,7 @@ public class PassingPlayer extends Player{
 				+ ", longest=" + this.longest + "]";
 	}
 	
+	// turns stats into a list
 	public ArrayList<Object> toList() {
 		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);

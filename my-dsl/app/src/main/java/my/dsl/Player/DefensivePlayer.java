@@ -2,6 +2,9 @@ package my.dsl.Player;
 
 import java.util.ArrayList;
 
+/*
+ * class representing a defensive player and their possible stats
+ */
 public class DefensivePlayer extends Player{
 	
 	public DefensivePlayer(int number) {
@@ -9,7 +12,6 @@ public class DefensivePlayer extends Player{
 		super.forLoss = 0;
 		super.flYards = 0;
 		super.flAVG = 0.0;
-		// TODO keep track of yards? in sacks or in for loss?
 		super.sacks = 0;
 		super.interception = 0;
 		super.intRetYards = 0;
@@ -19,11 +21,11 @@ public class DefensivePlayer extends Player{
 		super.recovered = 0;
 		super.fumRetYards = 0;
 		super.fumTds = 0;
-		// TODO keep track of Type?
 		super.blockedKicks = 0;
 		super.safetys = 0;
 		super.points = 0;
 	}
+
 	// setters for the defense for each stat type 
 	public DefensivePlayer updateDefensivePlayer() {
 		if ( ((double) super.flYards / (double) super.forLoss) > 0.0) {
@@ -143,7 +145,7 @@ public class DefensivePlayer extends Player{
 				+ ", blockedKicks=" + blockedKicks + ", safetys=" + safetys + ", points=" + points + ", flYards="
 				+ flYards + ", flAVG=" + flAVG + "]";
 	}
-	
+	// turns stats into a list 
 	public ArrayList<Object> toList() {
 		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);

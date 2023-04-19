@@ -1,7 +1,9 @@
 package my.dsl.Player;
 import java.util.ArrayList;
 
-
+/*
+ * class representing a Kicking player and their possible stats
+ */
 public class KickingPlayer extends Player{
 	//note touchbacks are currently touchdowns
 	
@@ -52,6 +54,7 @@ public class KickingPlayer extends Player{
 				+ ", avg=" + avg + ", longest=" + longest + ", touchBack=" + touchBack + "]";
 	}
 	
+	// turns stats into a list
 	public ArrayList<Object> toList() {
 		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);

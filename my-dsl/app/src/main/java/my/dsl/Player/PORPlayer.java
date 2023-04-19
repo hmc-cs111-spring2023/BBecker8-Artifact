@@ -1,7 +1,9 @@
 package my.dsl.Player;
 import java.util.ArrayList;
 
-
+/*
+ * class representing a Punt return player and their possible stats
+ */
 public class PORPlayer extends Player{
 	
 	public PORPlayer(int number) {
@@ -67,7 +69,7 @@ public class PORPlayer extends Player{
 		return "PORPlayer [number=" + number + ", eventCount=" + eventCount + ", yards=" + yards
 				+ ", avg=" + avg + ", tds=" + tds + ", longest=" + longest + ", fairCatch=" + fairCatch + "]";
 	}
-	
+	// turns stats into a list
 	public ArrayList<Object> toList() {
 		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);

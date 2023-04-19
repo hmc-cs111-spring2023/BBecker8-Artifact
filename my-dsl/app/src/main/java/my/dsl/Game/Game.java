@@ -5,7 +5,10 @@ import java.util.HashMap;
 import my.dsl.Parser.Parser;
 import my.dsl.Player.*;
 
-
+/**
+* A class representing an instance of a single football game
+*
+*/
 
 public class Game {
 
@@ -58,6 +61,7 @@ public class Game {
 
 	    return !isDuplicate;
 	}
+	
 	// if a player is already in hashmap list then update the players stats
 	public void update(String playType, Player player, Player p) throws Exception {
 	    // should take attributes from player and add them to p depending on the player type

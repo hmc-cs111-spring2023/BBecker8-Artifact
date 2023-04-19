@@ -15,12 +15,16 @@ import org.json.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
+/**
+* Api class for updating and sending requesting to spreadsheets.com
+*
+*/
 public class SpreadsheetApi {
 	private static final String KEY_STRING = "ar0wyM-.uMt0YfH8TpeyvEQD7p3sTg";
 	private String worksheetcode;
 	private String URI_STRING;
 
+	// Build headers for each playType to be passed into the sheet
 	@SuppressWarnings("serial")
 	private static final ArrayList<Object> PASSING_HEADER_STRINGS = new ArrayList<Object>() {
 		{
@@ -36,6 +40,7 @@ public class SpreadsheetApi {
 			add("INC");
 		}
 	};
+	// Build headers for each playType to be passed into the sheet
 	@SuppressWarnings("serial")
 	private static final ArrayList<Object> RUSHING_HEADER_STRINGS = new ArrayList<Object>(){
 		{
@@ -47,6 +52,7 @@ public class SpreadsheetApi {
 			add("TD");
 		}
 	};
+	// Build headers for each playType to be passed into the sheet
 	@SuppressWarnings("serial")
 	private static final ArrayList<Object> RECEIVING_HEADER_STRINGS = new ArrayList<Object>(){
 		{
@@ -58,6 +64,7 @@ public class SpreadsheetApi {
 			add("TD");
 		}
 	};
+	// Build headers for each playType to be passed into the sheet
 	@SuppressWarnings("serial")
 	private static final ArrayList<Object> PATFG_HEADER_STRINGS = new ArrayList<Object>(){
 		{
@@ -74,6 +81,7 @@ public class SpreadsheetApi {
 			add("Points");
 		}
 	};
+	// Build headers for each playType to be passed into the sheet
 	@SuppressWarnings("serial")
 	private static final ArrayList<Object> KICK_HEADER_STRINGS = new ArrayList<Object>(){
 		{
@@ -85,6 +93,7 @@ public class SpreadsheetApi {
 			add("TB");
 		}
 	};
+	// Build headers for each playType to be passed into the sheet
 	@SuppressWarnings("serial")
 	private static final ArrayList<Object> PUNT_HEADER_STRINGS = new ArrayList<Object>(){
 		{
@@ -95,6 +104,7 @@ public class SpreadsheetApi {
 			add("Long");
 		}
 	};
+	// Build headers for each playType to be passed into the sheet
 	@SuppressWarnings("serial")
 	private static final ArrayList<Object> KOR_HEADER_STRINGS = new ArrayList<Object>(){
 		{
@@ -106,6 +116,7 @@ public class SpreadsheetApi {
 			add("TD");
 		}
 	};
+	// Build headers for each playType to be passed into the sheet
 	@SuppressWarnings("serial")
 	private static final ArrayList<Object> POR_HEADER_STRINGS = new ArrayList<Object>(){
 		{
@@ -118,6 +129,7 @@ public class SpreadsheetApi {
 			add("TD");
 		}
 	};
+	// Build headers for each playType to be passed into the sheet
 	@SuppressWarnings("serial")
 	private static final ArrayList<Object> DEFENSIVE_HEADER_STRINGS = new ArrayList<Object>(){
 		{
@@ -139,39 +151,15 @@ public class SpreadsheetApi {
 			add("Points");
 		}
 	};
-	
-    public static void main(String[] args) throws Exception {
-    	SpreadsheetApi spreadsheetApi = new SpreadsheetApi();
-		//    	Game game = new Game();
-//    	game.add("Pass", new PassingPlayer(11));
-//    	sendPayload(populateSheet(game), URI_STRING, "POST");
-    	//sendPayload(buildDeleteList(parseIds(getPayload(URI_STRING))), URI_STRING, "DELETE");
-    	spreadsheetApi.setNewGame("hi");
-    }
-
+	// use initial spreadsheet as first game instance
+	// TODO: may change later to use a game averages sheet.
     public SpreadsheetApi() {
     	// get first worksheet code and set it
     	this.worksheetcode = "nT64HfwYRYOJs5E2pKllpQ";
     	this.URI_STRING = "https://api.spreadsheet.com/v1/worksheets/"+ this.worksheetcode +"/rows";
     }
     
-    
-    // post with the following
-//    headers = {'Authorization': 'Bearer <your API token>',
-//            'Content-Type': 'application/x-www-form-urlencoded'
-//           }
-//    uri = "https://api.spreadsheet.com/v1/workbooks/dkUM7qnIR9SCWrelxIDGlg/worksheets"
-//    payload = {
-//    	"name": "name of game"
-//    }
-    
-    // get id for new worksheet and set that as part of the uri
-//    headers = {'Authorization': 'Bearer <your API token>'}
-//    uri = "https://api.spreadsheet.com/v1/workbooks/dkUM7qnIR9SCWrelxIDGlg/worksheets"
-//    payload = {}
-    // use parse ids to get list of worksheet ids
-    // set new id in the uri by fetchhing last element in list
-    
+    // Creates a new spreadsheet and updates the worksheet code for the class
     public void setNewGame(String gameTitle) {
     	final String uri = "https://api.spreadsheet.com/v1/workbooks/dkUM7qnIR9SCWrelxIDGlg/worksheets";
     	JSONObject object = new JSONObject();
@@ -182,16 +170,15 @@ public class SpreadsheetApi {
     	this.URI_STRING = "https://api.spreadsheet.com/v1/worksheets/"+ this.worksheetcode +"/rows";
 	}
     
+	// sets the worksheet code for the class to an existing spreadsheet.
     public void getGameSheet(int index) {
     	final String uri = "https://api.spreadsheet.com/v1/workbooks/dkUM7qnIR9SCWrelxIDGlg/worksheets";
-//    	JSONObject object = new JSONObject();
-//    	object.put("name", "nameOFGame");
-//    	System.out.println(sendPayload(object, uri, "POST"));
     	ArrayList<String> worksheet_idList = parseIds(getPayload(uri));
     	this.worksheetcode = worksheet_idList.get(index-1);
     	this.URI_STRING = "https://api.spreadsheet.com/v1/worksheets/"+ this.worksheetcode +"/rows";
 	}
-    
+
+    // posts an updated game to spreadsheets.com
     public int postGame(Game game) throws Exception {
     	if (sendPayload(populateSheet(game), URI_STRING, "POST") == 200) {
     		return 200;
@@ -201,6 +188,7 @@ public class SpreadsheetApi {
     	
     }
     
+	// deletes the contents of current spreadsheet
     public int deleteSheet() throws Exception {
     	if (sendPayload(buildDeleteList(parseIds(getPayload(URI_STRING))), URI_STRING, "DELETE") == 200 || sendPayload(buildDeleteList(parseIds(getPayload(URI_STRING))), URI_STRING, "DELETE") == 400) {
     		return 200;
@@ -209,6 +197,7 @@ public class SpreadsheetApi {
     	}
 	}
 
+	// sends a jsonArray payload to spreadsheets.com
     public static int sendPayload(JSONArray payload, String uri, String postDelete) {
         try {
             URL url = new URL(uri);
@@ -242,6 +231,7 @@ public class SpreadsheetApi {
         return 0;
     }
     
+	// sends a jsonObject payload to spreadsheets.com
     public static int sendPayload(JSONObject payload, String uri, String postDelete) {
         try {
             URL url = new URL(uri);
@@ -276,7 +266,7 @@ public class SpreadsheetApi {
     }
 
 
-    
+    // grabs a payload from spreadsheets.com
     public static JsonNode getPayload(String uri) {
 
         try {
@@ -308,6 +298,7 @@ public class SpreadsheetApi {
 
     }
 
+	// parses id codes from json node.
     public static ArrayList<String> parseIds(JsonNode node) {
         ArrayList<String> ids = new ArrayList<>();
         try {
@@ -327,6 +318,7 @@ public class SpreadsheetApi {
         return ids;
     }
     
+	// builds a json array of ids to be deleted
     public static JSONArray buildDeleteList(ArrayList<String> ids) throws JSONException {
         JSONArray jsonArray = new JSONArray();
         for (String id : ids) {
@@ -337,7 +329,7 @@ public class SpreadsheetApi {
         return jsonArray;
       }
 
-    
+    // gets headers
     public static ArrayList<Object> getHeaders(String playType) throws Exception {
 		switch (playType) {
 	    case "Pass":
@@ -370,6 +362,7 @@ public class SpreadsheetApi {
 	
 	}
     
+	// gets player stats list
     public static ArrayList<Object> getPlayerStatsList(String playType, Player player) throws Exception {
 		switch (playType) {
 	    case "Pass":
@@ -402,7 +395,7 @@ public class SpreadsheetApi {
 	
 	}
     
-    
+    // populates a sheet given a game
     public static JSONArray populateSheet(Game game) {
     	JSONArray array = new JSONArray();
 		game.getPlayTypeMap().forEach((playType,playerList) -> {
@@ -429,7 +422,7 @@ public class SpreadsheetApi {
 	}
     
     
-    
+    // builds a row of the sheet
     public static JSONObject buildRow(JSONArray array) {
 	    // Create a row object
 	    JSONObject row = new JSONObject();
@@ -438,6 +431,7 @@ public class SpreadsheetApi {
 		
 	}
     
+	// builds an individual cell/s of the sheet
     public static JSONArray buildCells(ArrayList<Object> list) {
         JSONArray cellDataArray = new JSONArray();
         char columnId = 'A'; // Start with 'A' as the initial value of columnId1

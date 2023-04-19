@@ -1,7 +1,9 @@
 package my.dsl.Player;
 import java.util.ArrayList;
 
-
+/*
+ * class representing a Punt player and their possible stats
+ */
 public class PuntPlayer extends Player{
 
 	public PuntPlayer(int number) {

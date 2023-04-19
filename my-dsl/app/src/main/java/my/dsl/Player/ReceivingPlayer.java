@@ -1,7 +1,9 @@
 package my.dsl.Player;
 import java.util.ArrayList;
 
-
+/*
+ * class representing a receiving player and their possible stats
+ */
 public class ReceivingPlayer extends Player{
 
 	public ReceivingPlayer(int number) {
@@ -53,6 +55,7 @@ public class ReceivingPlayer extends Player{
 				+ yards + ", avg=" + avg + ", tds=" + tds + ", longest=" + longest + "]";
 	}
 	
+	// turns stats into a list
 	public ArrayList<Object> toList() {
 		ArrayList<Object> newList = new ArrayList<Object>();
 		newList.add(number);
