@@ -87,15 +87,26 @@ Safety - can be written as the following: safety sfty
 
 #### Possible Outcomes for plays are:
 TD - represents a Touch Down
+
 INC - represents an incomplete Pass
+
 INT - represents an Interception thrown
+
 FC - represents a fair catch
+
 FG - represents a field Goal
+
 PAT - represents a Point after attempt
+
 PUNT - represents a Punt
+
 REC - represents a recovered fumble
+
 NREC - represents a non-recovered fumble
+
 TB - represents a Touch Back
+
 GOOD - represents a good kick
+
 MISS - represents a missed kick
 
