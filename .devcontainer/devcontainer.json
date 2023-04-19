@@ -32,7 +32,6 @@
 			]
 		}
 	},
-
   "portsAttributes": {
     "6080": {
       "label": "Application",
