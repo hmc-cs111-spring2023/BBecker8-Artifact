@@ -8,8 +8,7 @@ import my.dsl.Player.*;
 
 
 public class Game {
-	
-	
+
 	private  HashMap<String, ArrayList<Player>> playTypeMap;
 
     public Game() {
@@ -104,6 +103,10 @@ public class Game {
 		}
 	
 	}
-	
+
+	public void setGame(Game game) {
+		this.playTypeMap = game.playTypeMap;
+		
+	}
 
 }

@@ -18,10 +18,12 @@ import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class App extends Application {
-
+    static Game game = new Game();
+	private static ArrayList<Game> games = new ArrayList<Game>();
     public static void main(String[] args) {
         launch(args);
     }
@@ -29,8 +31,8 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         StringGrouping group = new StringGrouping();
-        Game game = new Game();
         SpreadsheetApi api = new SpreadsheetApi();
+        games.add(game);
         if (api.deleteSheet() == 200) {
 
             // Create a text input box
@@ -56,15 +58,29 @@ public class App extends Application {
 
                     // send input through to data structure
                     try {
-                        group.update(textField.getText(), game);
-                        label.setText("");
-                        textField.setText("");
-                        
-                        if (api.deleteSheet() == 200) {
-                            if (api.postGame(game)== 200) {
-                                label.setText("Success");
-                            }
-                        }
+                        if(textField.getText().contains("Start New Game:")) {
+	                		game = new Game();
+	                		games.add(game);
+	                		textField.setText("");
+	                		api.setNewGame(textField.getText().substring(("Start New Game:").length(), textField.getText().length()));
+	                		
+	                	} else if(textField.getText().contains("Edit Past Game:")){
+	                		textField.setText("");
+	                		api.getGameSheet(Integer.parseInt(textField.getText().substring(("Edit Past Game:").length(), textField.getText().length()).trim()));
+	                		game = new Game();
+        	                // System.out.println(Integer.parseInt(textField.getText().substring(("Edit Past Game").length(), textField.getText().length()).trim())-1);
+        	                game.setGame(games.get(Integer.parseInt(textField.getText().substring(("Edit Past Game:").length(), textField.getText().length()).trim())-1));
+	                	} else {
+		                    group.update(textField.getText(), game);
+		                    label.setText("");
+		                    textField.setText("");
+		                    
+		                    if (api.deleteSheet() == 200) {
+		                    	if (api.postGame(game)== 200) {
+		                    		label.setText("Success");
+		                    	} // TODO error handling
+		                    } // TODO error handling
+	                	}
                     } catch (Exception e1) {
                         if (e1.getMessage().equals("Input Format of DSL is Not Valid")) {
                             try {

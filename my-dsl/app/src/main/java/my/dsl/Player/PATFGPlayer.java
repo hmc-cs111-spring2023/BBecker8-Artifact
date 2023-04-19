@@ -1,6 +1,6 @@
 package my.dsl.Player;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class PATFGPlayer extends Player{
 	

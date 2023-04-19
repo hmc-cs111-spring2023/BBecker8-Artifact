@@ -1,6 +1,6 @@
 package my.dsl.Player;
 import java.util.ArrayList;
-import java.util.List;
+
 
 //@JsonIgnoreType
 public class PassingPlayer extends Player{

@@ -18,7 +18,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class SpreadsheetApi {
 	private static final String KEY_STRING = "ar0wyM-.uMt0YfH8TpeyvEQD7p3sTg";
-	private static final String URI_STRING = "https://api.spreadsheet.com/v1/worksheets/nT64HfwYRYOJs5E2pKllpQ/rows";
+	private String worksheetcode;
+	private String URI_STRING;
+
 	@SuppressWarnings("serial")
 	private static final ArrayList<Object> PASSING_HEADER_STRINGS = new ArrayList<Object>() {
 		{
@@ -139,15 +141,56 @@ public class SpreadsheetApi {
 	};
 	
     public static void main(String[] args) throws Exception {
-//    	Game game = new Game();
+    	SpreadsheetApi spreadsheetApi = new SpreadsheetApi();
+		//    	Game game = new Game();
 //    	game.add("Pass", new PassingPlayer(11));
 //    	sendPayload(populateSheet(game), URI_STRING, "POST");
-    	sendPayload(buildDeleteList(parseIds(getPayload(URI_STRING))), URI_STRING, "DELETE");
+    	//sendPayload(buildDeleteList(parseIds(getPayload(URI_STRING))), URI_STRING, "DELETE");
+    	spreadsheetApi.setNewGame("hi");
     }
 
-//    public SpreadsheetApi() {
-//    	
+    public SpreadsheetApi() {
+    	// get first worksheet code and set it
+    	this.worksheetcode = "nT64HfwYRYOJs5E2pKllpQ";
+    	this.URI_STRING = "https://api.spreadsheet.com/v1/worksheets/"+ this.worksheetcode +"/rows";
+    }
+    
+    
+    // post with the following
+//    headers = {'Authorization': 'Bearer <your API token>',
+//            'Content-Type': 'application/x-www-form-urlencoded'
+//           }
+//    uri = "https://api.spreadsheet.com/v1/workbooks/dkUM7qnIR9SCWrelxIDGlg/worksheets"
+//    payload = {
+//    	"name": "name of game"
 //    }
+    
+    // get id for new worksheet and set that as part of the uri
+//    headers = {'Authorization': 'Bearer <your API token>'}
+//    uri = "https://api.spreadsheet.com/v1/workbooks/dkUM7qnIR9SCWrelxIDGlg/worksheets"
+//    payload = {}
+    // use parse ids to get list of worksheet ids
+    // set new id in the uri by fetchhing last element in list
+    
+    public void setNewGame(String gameTitle) {
+    	final String uri = "https://api.spreadsheet.com/v1/workbooks/dkUM7qnIR9SCWrelxIDGlg/worksheets";
+    	JSONObject object = new JSONObject();
+    	object.put("name", gameTitle);
+    	sendPayload(object, uri, "POST");
+    	ArrayList<String> worksheet_idList = parseIds(getPayload(uri));
+    	this.worksheetcode = worksheet_idList.get(worksheet_idList.size()-1);
+    	this.URI_STRING = "https://api.spreadsheet.com/v1/worksheets/"+ this.worksheetcode +"/rows";
+	}
+    
+    public void getGameSheet(int index) {
+    	final String uri = "https://api.spreadsheet.com/v1/workbooks/dkUM7qnIR9SCWrelxIDGlg/worksheets";
+//    	JSONObject object = new JSONObject();
+//    	object.put("name", "nameOFGame");
+//    	System.out.println(sendPayload(object, uri, "POST"));
+    	ArrayList<String> worksheet_idList = parseIds(getPayload(uri));
+    	this.worksheetcode = worksheet_idList.get(index-1);
+    	this.URI_STRING = "https://api.spreadsheet.com/v1/worksheets/"+ this.worksheetcode +"/rows";
+	}
     
     public int postGame(Game game) throws Exception {
     	if (sendPayload(populateSheet(game), URI_STRING, "POST") == 200) {
@@ -198,6 +241,40 @@ public class SpreadsheetApi {
         }
         return 0;
     }
+    
+    public static int sendPayload(JSONObject payload, String uri, String postDelete) {
+        try {
+            URL url = new URL(uri);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod(postDelete);
+            connection.setRequestProperty("Authorization", "Bearer " + KEY_STRING);
+            connection.setRequestProperty("Content-Type", "application/json");
+            connection.setDoOutput(true);
+            OutputStream os = connection.getOutputStream();
+            os.write(payload.toString().getBytes(StandardCharsets.UTF_8));
+            os.flush();
+            os.close();
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                return responseCode;
+            } else {
+                System.out.println("Failed. Response Code: " + responseCode);
+                return responseCode;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
     
     public static JsonNode getPayload(String uri) {
@@ -377,7 +454,5 @@ public class SpreadsheetApi {
 
         return cellDataArray;
     }
-    
-    
     
 }
