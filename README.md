@@ -25,10 +25,14 @@ The key parts are:
 1. Begin by following the instuctions above to open the app interface.
 2. Once open type the DSL language into the text box and hit enter.
 3. Go to ([here](https://app.spreadsheet.com/workbooks/7lWIK16tQ2W-ZplUvGrymAdkUM7qnIR9SCWrelxIDGlg?mode=sharing)) and check out the live stats that you just entered. 
+4. Use the 'Start New Game: Title' command to build another spreadsheet.
+5. Use the 'Edit Past Game: spreadheet#' to edit an existing spreadsheet.
 
 Its That easy!
 
 ### Here are some tips for proper usage of the the interface with the DSL:
+Use the 'Start New Game: Title' command to build another spreadsheet. Title should be replaced with the title of your spreadsheet.
+Use the 'Edit Past Game: spreadheet#' to edit an existing spreadsheet. spreadheet# should be replaced with a number representing the nth spreadsheet in the workspace. For instance say I have 3 sheets the left most would be spreadheet# 1 and the right most would be spreadheet# 3.
 
 Input Format must be in the following form:
 (PlayType) (player#1) (numberYards) (player#2) (Outcome)
