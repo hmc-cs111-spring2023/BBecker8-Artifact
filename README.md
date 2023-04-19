@@ -1,4 +1,7 @@
-# Java app with JavaFX + Spreadsheet.com API
+# Domain Specific Language for Football Stats
+## About me / instriation
+DSL for live sports statistics in Java. The gist of this project was to build a new language for parents and stats keepers that allows for quick input and shows proof of concept for live stat keeping. This project is focused on football stat keeping. Other applications of this language would be for live stat sharing across multiple platforms and API's. I came up with this idea when observing my dad keeping stats for my brother's high school football games. My dad volunteered to keep stats each game for my brother's football program, he would then send the stats to the coaches to input into maxpreps. I thought it might be nice for my dad to have such a language that builds these stat sheets for him as well as could potentially be used later to connect to other platforms API's such as maxpreps and fill in player stats during game time. This would fix the issue of using pen and paper to write down stats then transferring them to some other source. Also for someone like me who wanted to keep tabs on how my brother's team was playing but had no way to watch, such a language could be used to display a live play by play. 
+## Java app with JavaFX + Spreadsheet.com API
 
 This app should compile and run in codespaces.
 
@@ -32,10 +35,13 @@ Its That easy!
 
 ### Here are some tips for proper usage of the the interface with the DSL:
 Use the 'Start New Game: Title' command to build another spreadsheet. Title should be replaced with the title of your spreadsheet.
+
 Use the 'Edit Past Game: spreadheet#' to edit an existing spreadsheet. spreadheet# should be replaced with a number representing the nth spreadsheet in the workspace. For instance say I have 3 sheets the left most would be spreadheet# 1 and the right most would be spreadheet# 3.
 
 Input Format must be in the following form:
+
 (PlayType) (player#1) (numberYards) (player#2) (Outcome)
+
 Where each group is seperated only by a space. Also not every group Is required.
 
 ### Player Number #1 - A number representing a player's number (required)
