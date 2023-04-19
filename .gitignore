@@ -29,5 +29,4 @@ hs_err_pid*
 build
 
 # For Google API
-my-dsl/app/src/main/resources/credentials.json
 my-dsl/app/tokens/
