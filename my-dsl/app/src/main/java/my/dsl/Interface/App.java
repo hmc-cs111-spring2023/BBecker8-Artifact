@@ -62,10 +62,12 @@ public class App extends Application {
 	                		game = new Game();
 	                		games.add(game);
 	                		textField.setText("");
+                            label.setText("");
 	                		api.setNewGame(textField.getText().substring(("Start New Game:").length(), textField.getText().length()));
 	                		
 	                	} else if(textField.getText().contains("Edit Past Game:")){
 	                		textField.setText("");
+                            label.setText("");
 	                		api.getGameSheet(Integer.parseInt(textField.getText().substring(("Edit Past Game:").length(), textField.getText().length()).trim()));
 	                		game = new Game();
         	                // System.out.println(Integer.parseInt(textField.getText().substring(("Edit Past Game").length(), textField.getText().length()).trim())-1);
