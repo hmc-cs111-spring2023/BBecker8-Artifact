@@ -61,9 +61,9 @@ public class PlayByParser {
 			stringPass += " to Player " + playerNum2;
 			if (!outcome.equals("null")) {
 				stringRec = "Player " + playerNum2 + " caught a " + numYards + " pass from Player " + playerNum + " and the result was a " + outcome;
+			} else {
+				stringRec = "Player " + playerNum2 + " caught a " + numYards + " pass from Player " + playerNum;
 			}
-			stringRec = "Player " + playerNum2 + " caught a " + numYards + " pass from Player " + playerNum;
-
 		}
 		if (!outcome.equals("null")) {
 			stringPass += " and the result was a " + outcome;

@@ -125,17 +125,26 @@ public class App extends Application {
                     }
                 }
             });
+            
             // Create a button
             Button button = new Button("Show Play By Play");
             // on Button click create new scene
             button.setOnAction(event -> {
                 // Create a new stage
                 Stage newStage = new Stage();
+
+                //add scrollable
+                ScrollPane scrollPane2 = new ScrollPane(globalLabel);
+                scrollPane.setFitToWidth(true);
+                scrollPane.setPrefHeight(300);
+
                 // Create a VBox to hold the label
-                VBox vbox2 = new VBox(globalLabel);
+                VBox vbox2 = new VBox(scrollPane2);
                 vbox.setAlignment(Pos.CENTER);
+
                 // Create a scene with the VBox
                 Scene newScene = new Scene(vbox2, 400, 500);
+
                 // Set the scene on the new stage
                 newStage.setScene(newScene);
                 newStage.setTitle("Play By Play");
