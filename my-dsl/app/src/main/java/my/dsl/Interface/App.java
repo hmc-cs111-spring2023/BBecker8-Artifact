@@ -4,16 +4,19 @@
 package my.dsl.Interface;
 import my.dsl.API.SpreadsheetApi;
 import my.dsl.Game.Game;
-import my.dsl.Parser.StringGrouping;
+import my.dsl.Parser.*;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -30,6 +33,8 @@ public class App extends Application {
     private static String notValidOutcome = "/workspaces/Bbecker8-Artifact/my-dsl/app/src/main/java/my/dsl/Interface/NotValidOutcome_text";
     static Game game = new Game();
 	private static ArrayList<Game> games = new ArrayList<Game>();
+    private Label globalLabel = new Label();
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -50,7 +55,7 @@ public class App extends Application {
 
             ScrollPane scrollPane = new ScrollPane(label);
             scrollPane.setFitToWidth(true);
-            scrollPane.setPrefHeight(400);
+            scrollPane.setPrefHeight(300);
 
             // Create a VBox to hold the text input box and label
             VBox vbox = new VBox(10);
@@ -65,9 +70,9 @@ public class App extends Application {
             
             textField.setOnKeyPressed(event -> {
                 if (event.getCode() == KeyCode.ENTER) {
-
                     // send input through to data structure
                     try {
+                        globalLabel.setText(globalLabel.getText() + "\n\n" + group.update(textField.getText()));
                         if(textField.getText().contains("Start New Game:")) {
 	                		game = new Game();
 	                		games.add(game);
@@ -120,7 +125,30 @@ public class App extends Application {
                     }
                 }
             });
+            // Create a button
+            Button button = new Button("Show Play By Play");
+            // on Button click create new scene
+            button.setOnAction(event -> {
+                // Create a new stage
+                Stage newStage = new Stage();
+                // Create a VBox to hold the label
+                VBox vbox2 = new VBox(globalLabel);
+                vbox.setAlignment(Pos.CENTER);
+                // Create a scene with the VBox
+                Scene newScene = new Scene(vbox2, 400, 500);
+                // Set the scene on the new stage
+                newStage.setScene(newScene);
+                newStage.setTitle("Play By Play");
+                newStage.show();
+            });
+            
 
+            // Create a HBox to hold the button
+            HBox hbox = new HBox(10);
+            hbox.getChildren().addAll(button);
+            hbox.setAlignment(Pos.CENTER);
+
+            vbox.getChildren().add(hbox);
             // Create a scene with the VBox
             Scene scene = new Scene(vbox, 500, 600);
 
@@ -130,6 +158,7 @@ public class App extends Application {
             primaryStage.show();
         }
     }
+
 
     // grabs the contents of a file for error messaging
     public static String getFileContent(String file) throws Exception{

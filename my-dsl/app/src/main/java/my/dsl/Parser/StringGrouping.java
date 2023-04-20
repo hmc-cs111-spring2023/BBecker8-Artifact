@@ -57,6 +57,29 @@ public class StringGrouping {
 		
 	}
 
+	public String update(String input) throws Exception {
+		Function<String, String> nullToValue = (a) -> a == null ? "null" : a;
+		
+		Matcher groupsMatcher = STRING_INPUT_PATTERN.matcher(input);
+		
+		if(groupsMatcher.matches()) {
+			
+			this.playType = nullToValue.apply(groupsMatcher.group("playtype"));
+			this.playerNum = nullToValue.apply(groupsMatcher.group("playerNumber"));
+			this.playerNum2 = nullToValue.apply(groupsMatcher.group("playerNumber2"));
+			this.numYards = nullToValue.apply(groupsMatcher.group("numyards"));
+			this.outcome = nullToValue.apply(groupsMatcher.group("outcome"));
+			
+			try {
+				return (new PlayByParser()).parse(playType, playerNum, numYards, playerNum2, outcome);
+			} catch (Exception e) {
+				throw e;
+			}
+		} else {
+			throw new Exception("Input Format of DSL is Not Valid", new Throwable(input));
+		}
+	}
+
 	//getters
 
 	public String getPlayType() {
