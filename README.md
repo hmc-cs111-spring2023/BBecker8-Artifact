@@ -27,7 +27,7 @@ The key parts are:
 
 1. Begin by following the instuctions above to open the app interface.
 2. Once open type the DSL language into the text box and hit enter.
-3. Go to ([here](https://app.spreadsheet.com/workbooks/7lWIK16tQ2W-ZplUvGrymAdkUM7qnIR9SCWrelxIDGlg?mode=sharing)) and check out the live stats that you just entered. 
+3. Go to ([here](https://app.spreadsheet.com/workbooks/7lWIK16tQ2W-ZplUvGrymAdkUM7qnIR9SCWrelxIDGlg?mode=sharing)) and check out the live stats that you just entered. or Click the button at the bottom of the interface to view a live Play by Play of the game.
 4. Use the 'Start New Game: Title' command to build another spreadsheet.
 5. Use the 'Edit Past Game: spreadheet#' to edit an existing spreadsheet.
 
