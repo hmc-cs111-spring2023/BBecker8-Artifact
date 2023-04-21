@@ -72,7 +72,6 @@ public class App extends Application {
                 if (event.getCode() == KeyCode.ENTER) {
                     // send input through to data structure
                     try {
-                        globalLabel.setText(globalLabel.getText() + "\n\n" + group.update(textField.getText()));
                         if(textField.getText().contains("Start New Game:")) {
 	                		game = new Game();
 	                		games.add(game);
@@ -86,6 +85,7 @@ public class App extends Application {
                             textField.setText("");
                             label.setText("");
 	                	} else {
+                            globalLabel.setText(globalLabel.getText() + "\n\n" + group.update(textField.getText()));
 		                    group.update(textField.getText(), game);
 		                    label.setText("");
 		                    textField.setText("");
