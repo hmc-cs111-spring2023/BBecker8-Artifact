@@ -25,7 +25,7 @@ The key parts are:
 - The Gradle project format, created by running the `gradle init` command in the `my-dsl` folder, choosing a Desktop Java app and the remaining default options.
 - The [`my-dsl/app/build.gradle`](./my-dsl/app/build.gradle) file, which configures the dependencies for JavaFX and other dependencies.
 
-## How to Football Stats DSL
+## How to PigskinLingo:
 
 1. Begin by following the instuctions above to open the app interface.
 2. Once open type the DSL language into the text box and hit enter.
